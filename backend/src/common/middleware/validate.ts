@@ -8,9 +8,14 @@ export function validate(schema: ZodObject, source: 'body' | 'query' = 'body') {
   return (req: Request, _res: Response, next: NextFunction) => {
     const result = schema.safeParse(req[source]);
     if (!result.success) {
-      return next(result.error);
+      return next(new ValidationError(result.error));
     }
-    req[source] = result.data;
+    Object.defineProperty(req, source, {
+      value: result.data,
+      writable: true,
+      configurable: true,
+      enumerable: true
+    });
     next();
   };
 }

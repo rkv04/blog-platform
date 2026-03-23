@@ -1,4 +1,4 @@
-import { db, pool } from './db/db.js';
+import { pool } from './db/db.js';
 import { setupContainer } from './container.js';
 
 

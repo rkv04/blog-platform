@@ -30,6 +30,7 @@ export interface PostsFilter {
   search?: string;
   subscriptions?: boolean;
   currentUserId?: number;
+  authorId?: number;
 }
 
 export class PostRepository {
@@ -44,6 +45,10 @@ export class PostRepository {
 
     if (filter.topicId) {
       conditions.push(eq(posts.topicId, filter.topicId));
+    }
+
+    if (filter.authorId) {
+      conditions.push(eq(posts.authorId, filter.authorId));
     }
 
     if (filter.search) {
@@ -146,15 +151,38 @@ export class PostRepository {
   }
 
   public async getComments(postId: number): Promise<CommentRow[]> {
-    return this.db
-      .select({ id: comments.id, text: comments.text })
+    const rows = await this.db
+      .select({
+        id: comments.id,
+        text: comments.text,
+        author: {
+          id: users.id,
+          name: users.name
+        }
+      })
       .from(comments)
+      .innerJoin(users, eq(comments.authorId, users.id))
       .where(eq(comments.postId, postId))
       .orderBy(comments.createdAt);
+
+    return rows;
   }
 
   public async addComment(data: NewComment): Promise<CommentRow> {
-    const result = await this.db.insert(comments).values(data).returning({ id: comments.id, text: comments.text });
+    const [inserted] = await this.db.insert(comments).values(data).returning({ id: comments.id, text: comments.text });
+    const result = await this.db
+      .select({
+        id: comments.id,
+        text: comments.text,
+        author: {
+          id: users.id,
+          name: users.name
+        }
+      })
+      .from(comments)
+      .innerJoin(users, eq(comments.authorId, users.id))
+      .where(eq(comments.id, inserted!.id));
+
     return result[0]!;
   }
 

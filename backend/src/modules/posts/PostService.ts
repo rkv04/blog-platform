@@ -21,6 +21,7 @@ export class PostService {
       search: query.search,
       subscriptions: query.subscriptions === 'true',
       currentUserId,
+      authorId: query.authorId
     };
     const { data, total } = await this.postRepository.findMany(filter);
     return {

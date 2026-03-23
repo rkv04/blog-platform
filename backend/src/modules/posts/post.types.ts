@@ -18,6 +18,7 @@ export const postsQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(10),
   search: z.string().optional(),
   subscriptions: z.enum(['true', 'false']).optional(),
+  authorId: z.coerce.number().int().positive().optional()
 });
 
 export const addCommentSchema = z.object({

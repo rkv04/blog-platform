@@ -14,8 +14,8 @@ export interface ITopicCradle {
 }
 
 export const topicModule = {
-  postRepository: asClass(TopicRepository).singleton(),
-  postService: asClass(TopicService).singleton(),
-  postController: asClass(TopicsController).singleton(),
-  postRouter: asClass(TopicRouter).singleton()
+  topicRepository: asClass(TopicRepository).singleton(),
+  topicService: asClass(TopicService).singleton(),
+  topicController: asClass(TopicsController).singleton(),
+  topicRouter: asClass(TopicRouter).singleton()
 };
