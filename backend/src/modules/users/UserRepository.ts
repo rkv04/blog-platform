@@ -2,11 +2,11 @@ import { and, eq } from "drizzle-orm";
 
 import type { ICradle } from "../../container.js";
 import { subscriptions, users } from "../../db/schema.js";
-import type { DbUserSelect, DbUserInsert, DbSubscriptionSelect } from "../../db/schema.js";
+import type { User, NewUser, Subscription } from "../../db/schema.js";
 
 
-export type UserEntity = Omit<DbUserSelect, 'passwordHash' | 'createdAt'>;
-export type UserEntityWithPassword = DbUserSelect;
+export type UserEntity = Omit<User, 'passwordHash' | 'createdAt'>;
+export type UserEntityWithPassword = User;
 export type ShortUser = Pick<UserEntity, 'id' | 'name'>;
 
 export class UserRepository {
@@ -26,7 +26,7 @@ export class UserRepository {
     return rows[0] ?? null;
   }
 
-  public async create(user: DbUserInsert): Promise<UserEntity> {
+  public async create(user: NewUser): Promise<UserEntity> {
     const [row] = await this.db
       .insert(users)
       .values(user)
@@ -40,7 +40,7 @@ export class UserRepository {
     return row!;
   }
 
-  public async findSubscription(followerId: number, followingId: number): Promise<DbSubscriptionSelect | null> {
+  public async findSubscription(followerId: number, followingId: number): Promise<Subscription | null> {
     const result = await this.db
       .select()
       .from(subscriptions)

@@ -78,24 +78,24 @@ export const subscriptions = pgTable('subscriptions', {
 );
 
 
-export type DbUserSelect = typeof users.$inferSelect;
-export type DbUserInsert = typeof users.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
 export type UserRole = 'user' | 'admin';
 
-export type DbTopicSelect = typeof topics.$inferSelect;
-export type DbTopicInsert = typeof topics.$inferInsert;
+export type Topic = typeof topics.$inferSelect;
+export type NewTopic = typeof topics.$inferInsert;
 
-export type DbPostSelect = typeof posts.$inferSelect;
-export type DbPostInsert = typeof posts.$inferInsert;
+export type Post = typeof posts.$inferSelect;
+export type NewPost = typeof posts.$inferInsert;
 
-export type DbCommentSelect = typeof comments.$inferSelect;
-export type DbCommentInsert = typeof comments.$inferInsert;
+export type Comment = typeof comments.$inferSelect;
+export type NewComment = typeof comments.$inferInsert;
 
-export type DbLikeSelect = typeof likes.$inferSelect;
-export type DbLikeInsert = typeof likes.$inferInsert;
+export type Like = typeof likes.$inferSelect;
+export type NewLike = typeof likes.$inferInsert;
 
-export type DbSubscriptionSelect = typeof subscriptions.$inferSelect;
-export type DbSubscriptionInsert = typeof subscriptions.$inferInsert;
+export type Subscription = typeof subscriptions.$inferSelect;
+export type NewSubscription = typeof subscriptions.$inferInsert;
 
-export type DbRefreshTokenSelect = typeof refreshTokens.$inferSelect;
-export type DbRefreshTokenInsert = typeof refreshTokens.$inferInsert;
+export type RefreshToken = typeof refreshTokens.$inferSelect;
+export type NewRefreshToken = typeof refreshTokens.$inferInsert;

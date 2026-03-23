@@ -1,23 +1,16 @@
 import type { NextFunction, Request, Response } from 'express';
 import { ZodObject } from 'zod'
-import fs from 'node:fs';
 
 import { ValidationError } from '../exceptions/HttpErrors.js';
 
 
-export const validate = (schema: ZodObject) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const result = schema.safeParse({
-      body: req.body ?? {},
-      query: req.query ?? {},
-      params: req.params ?? {},
-      file: (req as any).file ?? {}
-    });
-
+export function validate(schema: ZodObject, source: 'body' | 'query' = 'body') {
+  return (req: Request, _res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req[source]);
     if (!result.success) {
-      const error = new ValidationError(result.error);
-      return next(error);
+      return next(result.error);
     }
+    req[source] = result.data;
     next();
   };
-};
+}

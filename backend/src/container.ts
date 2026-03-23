@@ -5,11 +5,15 @@ import { HttpServer } from './infrastructure/http/HttpServer.js';
 import { MainRouter } from './infrastructure/http/MainRouter.js';
 import { userModule, type IUserCrudle } from "./modules/users/user.di.js";
 import { authModule, type IAuthCradle } from "./modules/auth/auth.di.js";
+import { postModule, type IPostCradle } from "./modules/posts/post.di.js";
+import { topicModule, type ITopicCradle } from "./modules/topics/topic.di.js";
 
 
 export interface ICradle extends
   IUserCrudle,
-  IAuthCradle
+  IAuthCradle,
+  IPostCradle,
+  ITopicCradle
 {
   db: DbInstance;
   mainRouter: MainRouter;
@@ -25,7 +29,9 @@ export const setupContainer = () => {
     httpServer: asClass(HttpServer).singleton(),
 
     ...authModule,
-    ...userModule
+    ...userModule,
+    ...postModule,
+    ...topicModule
   });
 
   return container;
