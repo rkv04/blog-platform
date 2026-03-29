@@ -1,8 +1,10 @@
 node_modules/
 dist/
 tmp/
-uploads/
-public/
+uploads/*
+!uploads/.gitkeep
+public/*
+!public/.gitkeep
 
 .env
 .env.*
