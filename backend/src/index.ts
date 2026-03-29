@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { pool } from './db/db.js';
 import { setupContainer } from './container.js';
 

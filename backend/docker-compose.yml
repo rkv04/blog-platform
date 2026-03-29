@@ -18,6 +18,24 @@ services:
     ports:
       - "8080:8080"
 
+  backend:
+    image: blog-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blog_backend
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./uploads:/app/uploads
+      - ./public:/app/public
+      - ./drizzle:/app/drizzle
+    depends_on:
+      - db
+
 volumes:
   pg18_data:
     name: blog_pg18_data
