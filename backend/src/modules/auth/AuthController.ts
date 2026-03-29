@@ -7,7 +7,7 @@ import { ErrorCode, UnauthorizedError } from '../../common/exceptions/HttpErrors
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: false,
-  sameSite: 'strict',
+  sameSite: 'lax',
   path: '/api/auth',
   maxAge: 30 * 24 * 60 * 60 * 1000
 } as const;

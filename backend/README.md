@@ -20,7 +20,16 @@ docker compose up -d --build
 ```
 
 Бэкенд будет доступен на `http://localhost:3000`  
-Adminer (управление БД) — `http://localhost:8080`
+Adminer (управление БД) — `http://localhost:8080`  
+
+Данные для входа в Adminer:  
+``` 
+System: PostgreSQL  
+Server: db  
+Username: admin  
+Password: admin  
+Database: blog_db  
+```
 
 ## Разработка фронтенда
 
