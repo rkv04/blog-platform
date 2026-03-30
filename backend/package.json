@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "vitest run",
     "build": "npx tsc && node ./dist/index.js",
     "db:migrate": "npx tsx ./src/db/migrate.ts",
     "dev": "tsx --watch ./src/index.ts"
@@ -22,7 +23,8 @@
     "@types/pg": "^8.16.0",
     "drizzle-kit": "^0.31.8",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.2"
   },
   "dependencies": {
     "argon2": "^0.44.0",

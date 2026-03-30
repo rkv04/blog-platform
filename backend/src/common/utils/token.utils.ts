@@ -10,7 +10,7 @@ export interface AccessTokenPayload {
 };
 
 export const signAccessToken = (payload: AccessTokenPayload): string => {
-  return jwt.sign(payload, JWT_ACCESS_SECRET, { expiresIn: '30d' }); // todo!
+  return jwt.sign(payload, JWT_ACCESS_SECRET, { expiresIn: '15m' });
 };
 
 export const verifyAccessToken = (token: string): AccessTokenPayload => {

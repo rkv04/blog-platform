@@ -57,11 +57,11 @@ export class AuthService {
   public async login(userDto: UserLoginDto) {
     const user = await this.userRepository.getByEmail(userDto.email);
     if (!user) {
-      throw new ConflictError('INVALID_CREDENTIALS');
+      throw new UnauthorizedError('INVALID_CREDENTIALS');
     }
     const match = await argon2.verify(user.passwordHash, userDto.password);
     if (!match) {
-      throw new ConflictError('INVALID_CREDENTIALS');
+      throw new UnauthorizedError('INVALID_CREDENTIALS');
     }
 
     await this.authRepository.deleteRefreshTokensByUserId(user.id);
@@ -80,7 +80,8 @@ export class AuthService {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     };
   }
