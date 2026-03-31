@@ -21,7 +21,7 @@ export class HttpServer {
 
   public setupMiddleware() {
     this.expressApp.use(cors({
-      origin: process.env.CLIENT_URL,
+      origin: process.env.CLIENT_ORIGIN,
       credentials: true,
     }));
 
